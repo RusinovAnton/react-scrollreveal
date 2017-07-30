@@ -1,0 +1,49 @@
+{
+  "name": "react-scrollreveal",
+  "version": "1.0.0",
+  "description": "",
+  "browser": "dist/react-scrollreveal.umd.js",
+  "main": "dist/react-scrollreveal.cjs.js",
+  "module": "dist/react-scrollreveal.esm.js",
+  "scripts": {
+    "build": "npx rollup -c",
+    "start": "npx rollup -c -w"
+  },
+  "keywords": [
+    "react",
+    "scrollreveal",
+    "HOC",
+    "60fps"
+  ],
+  "authors": [
+    {
+      "name": "Rusinov Anton",
+      "email": "rusinovantondev@gmail.com"
+    }
+  ],
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "babel-jest": "^20.0.3",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-function-bind": "^6.8.0",
+    "babel-plugin-transform-react-constant-elements": "^6.9.1",
+    "babel-plugin-transform-react-inline-elements": "^6.8.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-react-optimize": "^1.0.1",
+    "babel-preset-stage-0": "^6.16.0",
+    "npx": "^9.5.0",
+    "rollup": "^0.45.2",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-watch": "^4.3.1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.0.0-beta.1",
+    "react-dom": "^16.0.0-beta.1",
+    "scrollreveal": "^4.0.0-beta.9"
+  }
+}
