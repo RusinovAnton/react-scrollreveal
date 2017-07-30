@@ -1,105 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ScrollReveal from 'scrollreveal'
 
-console.log(Component);
 
 /**
+ * Creates React Component that will have animated elements on scroll
  *
- * @param {array|object} scrollRevealOptions
- * @constructor
+ * @param {array|object} srOptions
+ * @param {string} srOptions.selector
+ * @param {object} srOptions.options
+ * @param {number} srOptions.interval
+ * @return {function} React component
  */
-const ReactScrollreveal = (scrollRevealOptions = {}) => (Component) => {
+const ReactScrollreveal = (srOptions = {}) => (Component) => {
   const sr = ScrollReveal();
 
-  class ComponentWithScrollReveal extends Component {
+  class ComponentWithScrollReveal extends React.Component {
     static displayName = 'ComponentWithScrollReveal';
-
-    // TODO rename it, make real forEachRevealElement function
-    /**
-     * Iterates through all scrollRevealOptions and applies given function
-     *
-     * @param {function} fn
-     * @return undefined
-     */
-    forEachRevealElement = fn => {
-      if (Array.isArray(scrollRevealOptions)) {
-        scrollRevealOptions.forEach(options => {
-          fn(options);
-        });
-      } else if (typeof scrollRevealOptions === 'object') {
-        fn(scrollRevealOptions);
-      } else {
-        throw new TypeError('Invalid arguments were passed');
-      }
-    };
-
-    /**
-     * Get reveal elements by given selector
-     *
-     * @param {string} selector
-     * @return {NodeList}
-     */
-    getRevealElements(selector) {
-      return !!selector ? this.block.querySelectorAll(selector) : this.block;
-    }
-
-    /**
-     * Init scrollreveal for all releveal elements by selector
-     *
-     * @param {string} selector - selector that gets elements to reveal
-     * @param {object} options - ScrollReveal's options (see https://github.com/jlmakes/scrollreveal#2-configuration)
-     * @param {number} interval - ScrollReveal's interval value to make sequential animation
-     */
-    applyRevealAnimation = ({ selector, options = {}, interval }) => {
-      const revealElements = this.getRevealElements(selector);
-      const opts = Object.assign({}, options);
-
-      // TODO check nodeType check
-      if (revealElements.length || !!revealElements.nodeType) {
-        sr.reveal(revealElements, opts, interval);
-      }
-    };
-
-    /**
-     * Initialize sr animations for every reveal element by given selector
-     *
-     * @return undefined
-     */
-    initialize() {
-      if (!this.block) {
-        return;
-      }
-
-      this.forEachRevealElement(this.applyRevealAnimation);
-    }
-
-    clearElementsSrInitiation = ({ selector }) => {
-      const revealElements = Array.prototype.slice.apply(this.getRevealElements(selector));
-
-      if (revealElements.length || !!revealElements.nodeType) {
-        revealElements.forEach(node => {
-          node.removeAttribute('style');
-          node.removeAttribute('data-sr-id');
-        });
-      }
-    };
-
-    clear(clearStyles) {
-      // clearing styles makes sr animation initialize again
-      // on same element that were still in DOM
-      if (clearStyles) {
-        this.forEachRevealElement(this.clearElementsSrInitiation);
-      }
-
-      // remove event listeners
-      // on component unmount event
-      sr.destroy();
-    }
-
-    refresh() {
-      this.clear(true);
-      this.init();
-    }
 
     componentDidMount() {
       this.initialize();
@@ -113,17 +29,117 @@ const ReactScrollreveal = (scrollRevealOptions = {}) => (Component) => {
       this.clear();
     }
 
-    getComponentRef = node => {
-      // TODO: make sure we can or can't avoid setting block ref inside child Component
-      if (!node) {
-        this.block = node;
+    /**
+     *
+     * @param {function} fn
+     */
+    forEachSrElement = (fn) => {
+      const elements = [];
+
+      this.forEachSrOption(({ selector }) => {
+        elements.concat(Array.prototype.slice.apply(document.querySelectorAll(selector)));
+      });
+
+      elements.forEach(fn);
+    };
+
+    /**
+     * Iterates through all srOptions and applies given function
+     *
+     * @param {function} fn
+     * @return undefined
+     */
+    forEachSrOption = fn => {
+      if (Array.isArray(srOptions)) {
+        srOptions.forEach(options => {
+          fn(options);
+        });
+      } else if (typeof srOptions === 'object') {
+        fn(srOptions);
       } else {
-        this.block = node.refs.block;
+        throw new TypeError('Invalid arguments were passed');
+      }
+    };
+
+    /**
+     * Get reveal elements by given selector
+     *
+     * @param {string} selector
+     * @return {NodeList}
+     */
+    getRevealElements(selector) {
+      return !!selector ? this.animationContainer.querySelectorAll(selector) :
+        this.animationContainer;
+    }
+
+    /**
+     * Init scrollreveal for all reveal elements by selector
+     *
+     * @param {number} interval - ScrollReveal's interval value to make sequential animation
+     * @param {object} options - ScrollReveal's options (see https://github.com/jlmakes/scrollreveal#2-configuration)
+     * @param {string} selector - selector that gets elements to reveal
+     */
+    applyRevealAnimation = ({ selector, options = {}, interval }) => {
+      const revealElements = this.getRevealElements(selector);
+      const opts = Object.assign({}, options);
+
+      // revealElements can be NodeList or single node
+      if (revealElements.length || !!revealElements.nodeType) {
+        sr.reveal(revealElements, opts, interval);
+      }
+    };
+
+    /**
+     * Initialize sr animations for every reveal element by given selector
+     *
+     * @return undefined
+     */
+    initialize() {
+      if (!this.animationContainer) {
+        return;
+      }
+
+      this.forEachSrOption(this.applyRevealAnimation);
+    }
+
+    clear(clearStyles) {
+      // clearing styles makes sr animation initialize again
+      // on same element that were still in DOM
+      if (clearStyles) {
+        this.forEachSrElement(el => {
+          sr.clear(el);
+        });
+      } else {
+        // remove event listeners
+        // on component unmount event
+        sr.destroy();
+      }
+    }
+
+    refresh() {
+      this.clear(true);
+      this.init();
+    }
+
+    /**
+     * Gets ref to the child's component desired animation container DOM node
+     *
+     * @param {object} node
+     * @return undefined
+     */
+    getRef = node => {
+      if (typeof node.nodeType === 'number') {
+        this.animationContainer = node;
+      } else {
+        throw new Error('You should put animationContainerReference on DOM node, not React component.')
       }
     };
 
     render() {
-      return <Component ref={this.getComponentRef} sr={sr} {...this.props} />;
+      return <Component animationContainerReference={this.getRef}
+                        destroyRevealAnimation={this.clear}
+                        refreshRevealAnimation={this.refresh}
+                        {...this.props}/>;
     }
   }
 

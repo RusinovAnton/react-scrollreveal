@@ -1,0 +1,71 @@
+{
+  "presets": [
+    "react"
+  ],
+  "plugins": [
+    "transform-class-properties",
+    [
+      "transform-react-remove-prop-types",
+      {
+        "mode": "wrap"
+      }
+    ]
+  ],
+  "env": {
+    "dev": {
+      "presets": [
+        "es2015",
+        "react-hmre"
+      ]
+    },
+    "development": {
+      "presets": [
+        "es2015"
+      ]
+    },
+    "dist": {
+      "presets": [
+        "es2015"
+      ],
+      "plugins": [
+        "transform-class-properties"
+      ]
+    },
+    "distMin": {
+      "presets": [
+        "es2015"
+      ]
+    },
+    "ghPages": {
+      "presets": [
+        "es2015"
+      ]
+    },
+    "modules": {
+      "presets": [
+        "es2015"
+      ],
+      "plugins": [
+        "transform-class-properties"
+      ]
+    },
+    "es6": {
+      "presets": [
+        [
+          "es2015",
+          {
+            "modules": false
+          }
+        ]
+      ],
+      "plugins": [
+        "transform-class-properties"
+      ]
+    },
+    "test": {
+      "presets": [
+        "es2015"
+      ]
+    }
+  }
+}
