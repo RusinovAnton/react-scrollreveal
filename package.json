@@ -2,9 +2,7 @@
   "name": "react-scrollreveal",
   "version": "1.0.0",
   "description": "",
-  "browser": "dist/react-scrollreveal.umd.js",
   "main": "dist/react-scrollreveal.cjs.js",
-  "module": "dist/react-scrollreveal.esm.js",
   "scripts": {
     "build": "npx rollup -c",
     "start": "npx rollup -c -w"
