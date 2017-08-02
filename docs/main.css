@@ -1,5 +1,14 @@
-.github-corner svg {
-    z-index: 1000;
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
 }
 
-/* TODO: insert main styles of your demo here */
+.col {
+  width: 25%;
+  float: left;
+}
+
+.container {
+  width: 800px;
+  margin: 0 auto;
+}

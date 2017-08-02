@@ -1,5 +1,5 @@
-import React from 'react'
-import ScrollReveal from 'scrollreveal'
+import React from 'react' // eslint-disable-line semi
+import ScrollReveal from 'scrollreveal' // eslint-disable-line semi
 
 
 /**
@@ -49,9 +49,9 @@ const ReactScrollreveal = (srOptions = {}) => (Component) => {
      * @param {function} fn
      * @return undefined
      */
-    forEachSrOption = fn => {
+    forEachSrOption = (fn) => {
       if (Array.isArray(srOptions)) {
-        srOptions.forEach(options => {
+        srOptions.forEach((options) => {
           fn(options);
         });
       } else if (typeof srOptions === 'object') {
@@ -68,7 +68,7 @@ const ReactScrollreveal = (srOptions = {}) => (Component) => {
      * @return {NodeList}
      */
     getRevealElements(selector) {
-      return !!selector ? this.animationContainer.querySelectorAll(selector) :
+      return selector ? this.animationContainer.querySelectorAll(selector) :
         this.animationContainer;
     }
 
@@ -106,7 +106,7 @@ const ReactScrollreveal = (srOptions = {}) => (Component) => {
       // clearing styles makes sr animation initialize again
       // on same element that were still in DOM
       if (clearStyles) {
-        this.forEachSrElement(el => {
+        this.forEachSrElement((el) => {
           sr.clear(el);
         });
       } else {
@@ -127,19 +127,23 @@ const ReactScrollreveal = (srOptions = {}) => (Component) => {
      * @param {object} node
      * @return undefined
      */
-    getRef = node => {
+    getRef = (node) => {
       if (typeof node.nodeType === 'number') {
         this.animationContainer = node;
       } else {
-        throw new Error('You should put animationContainerReference on DOM node, not React component.')
+        throw new Error('You should put animationContainerReference on DOM node, not React component.');
       }
     };
 
     render() {
-      return <Component animationContainerReference={this.getRef}
-                        destroyRevealAnimation={this.clear}
-                        refreshRevealAnimation={this.refresh}
-                        {...this.props}/>;
+      return (
+        <Component
+          animationContainerReference={this.getRef}
+          destroyRevealAnimation={this.clear}
+          refreshRevealAnimation={this.refresh}
+          {...this.props}
+        />
+      );
     }
   }
 

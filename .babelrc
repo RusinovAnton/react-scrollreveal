@@ -48,6 +48,9 @@
     "ghPages": {
       "presets": [
         "es2015"
+      ],
+      "plugins": [
+        "transform-class-properties"
       ]
     },
     "modules": {
