@@ -37,7 +37,6 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
     "catalog": "^2.5.3",
-    "chai": "^3.5.0",
     "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^0.28.1",
     "eslint": "^3.19.0",
@@ -53,13 +52,13 @@
     "html-webpack-plugin": "^2.28.0",
     "html-webpack-template": "^6.0.1",
     "jest": "^20.0.0",
+    "jsdom": "^11.1.0",
     "json-loader": "^0.5.4",
     "purecss": "^0.6.2",
+    "raf": "^3.3.2",
     "raw-loader": "^0.5.1",
-    "react": "^15.5.4",
-    "react-addons-test-utils": "^15.5.1",
-    "react-dom": "^15.5.4",
     "react-github-corner": "^0.3.0",
+    "react-test-renderer": "^16.0.0-beta.2",
     "rimraf": "^2.6.1",
     "style-loader": "^0.17.0",
     "sync-exec": "^0.6.2",
@@ -97,6 +96,8 @@
     "test"
   ],
   "dependencies": {
-    "scrollreveal": "^3.3.6"
+    "react": "^16.0.0-beta.2",
+    "react-dom": "^16.0.0-beta.2",
+    "scrollreveal": "^4.0.0-beta.9"
   }
 }
