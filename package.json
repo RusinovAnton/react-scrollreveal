@@ -89,7 +89,8 @@
   "keywords": [
     "react",
     "reactjs",
-    "boilerplate"
+    "scrollreveal",
+    "animation"
   ],
   "license": "MIT",
   "pre-push": [

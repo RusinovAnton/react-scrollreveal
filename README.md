@@ -43,13 +43,13 @@ export default withScrollReveal([
 ## Reference
 withScrollReveal HOC arguments.  
 You have to provide object or array of objects with shape that described bellow:
-```
-{
-  selector {string} - css selector to get DOM nodes that init scrollreveal on 
-  options {object} - [scrollreveal configuration](https://github.com/jlmakes/scrollreveal#2-configuration)
-  interval {number} - interval in milliseconds to create [animation sequence](https://github.com/jlmakes/scrollreveal#3-advanced) for selected elements
+
+{  
+  selector {string} - css selector to get DOM nodes that init scrollreveal on   
+  options {object} - [scrollreveal configuration](https://github.com/jlmakes/scrollreveal#2-configuration)  
+  interval {number} - interval in milliseconds to create [animation sequence](https://github.com/jlmakes/scrollreveal#3-advanced) for selected elements  
 }
-```
+
   
 Wrapped component props:
 - animationContainerReference {function} - you have to set reference of your animated elements' container
