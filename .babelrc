@@ -16,11 +16,17 @@
       "presets": [
         "es2015",
         "react-hmre"
+      ],
+      "plugins": [
+        "transform-class-properties"
       ]
     },
     "development": {
       "presets": [
         "es2015"
+      ],
+      "plugins": [
+        "transform-class-properties"
       ]
     },
     "dist": {
@@ -34,6 +40,9 @@
     "distMin": {
       "presets": [
         "es2015"
+      ],
+      "plugins": [
+        "transform-class-properties"
       ]
     },
     "ghPages": {
