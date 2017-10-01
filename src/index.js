@@ -5,7 +5,7 @@ import ScrollReveal from 'scrollreveal' // eslint-disable-line semi
 /**
  * Creates React Component that will have animated elements on scroll
  *
- * @param {array|object} srOptions
+ * @param {Array|object} srOptions
  * @param {string} srOptions.selector
  * @param {object} srOptions.options
  * @param {number} srOptions.interval
@@ -118,7 +118,7 @@ const ReactScrollreveal = (srOptions = {}) => (Component) => {
 
     refresh() {
       this.clear(true);
-      this.init();
+      this.initialize();
     }
 
     /**
