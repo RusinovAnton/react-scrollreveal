@@ -92,7 +92,7 @@
     "scrollreveal",
     "animation"
   ],
-  "license": "MIT",
+  "license": "GPL-3.0",
   "pre-push": [
     "test"
   ],
