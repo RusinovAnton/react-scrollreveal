@@ -107,7 +107,7 @@ const ReactScrollreveal = (srOptions = {}) => (Component) => {
       // on same element that were still in DOM
       if (clearStyles) {
         this.forEachSrElement((el) => {
-          sr.clear(el);
+          sr.clean(el);
         });
       } else {
         // remove event listeners
