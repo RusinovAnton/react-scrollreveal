@@ -26,7 +26,7 @@ const ReactScrollreveal = (srOptions = {}) => (Component) => {
     }
 
     componentWillUnmount() {
-      this.clear();
+      this.clean();
     }
 
     /**
@@ -102,10 +102,10 @@ const ReactScrollreveal = (srOptions = {}) => (Component) => {
       this.forEachSrOption(this.applyRevealAnimation);
     }
 
-    clear(clearStyles) {
-      // clearing styles makes sr animation initialize again
+    clean(cleanStyles) {
+      // cleaning styles makes sr animation initialize again
       // on same element that were still in DOM
-      if (clearStyles) {
+      if (cleanStyles) {
         this.forEachSrElement(sr.clean);
       } else {
         // remove event listeners
@@ -115,7 +115,7 @@ const ReactScrollreveal = (srOptions = {}) => (Component) => {
     }
 
     refresh() {
-      this.clear(true);
+      this.clean(true);
       this.initialize();
     }
 
@@ -137,7 +137,7 @@ const ReactScrollreveal = (srOptions = {}) => (Component) => {
       return (
         <Component
           animationContainerReference={this.getRef}
-          destroyRevealAnimation={this.clear}
+          destroyRevealAnimation={this.clean}
           refreshRevealAnimation={this.refresh}
           {...this.props}
         />
