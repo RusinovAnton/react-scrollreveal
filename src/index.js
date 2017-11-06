@@ -106,9 +106,7 @@ const ReactScrollreveal = (srOptions = {}) => (Component) => {
       // clearing styles makes sr animation initialize again
       // on same element that were still in DOM
       if (clearStyles) {
-        this.forEachSrElement((el) => {
-          sr.clear(el);
-        });
+        this.forEachSrElement(sr.clean);
       } else {
         // remove event listeners
         // on component unmount event

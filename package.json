@@ -92,13 +92,13 @@
     "scrollreveal",
     "animation"
   ],
-  "license": "MIT",
+  "license": "GPL-3.0",
   "pre-push": [
     "test"
   ],
   "dependencies": {
     "react": "^16.0.0-beta.2",
     "react-dom": "^16.0.0-beta.2",
-    "scrollreveal": "^4.0.0-beta.9"
+    "scrollreveal": "^4.0.0-beta.23"
   }
 }
