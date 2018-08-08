@@ -56,9 +56,12 @@
     "purecss": "^0.6.2",
     "raf": "^3.3.2",
     "raw-loader": "^0.5.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "react-github-corner": "^0.3.0",
     "react-test-renderer": "^16.0.0-beta.2",
     "rimraf": "^2.6.2",
+    "scrollreveal": "^4.0.0",
     "style-loader": "^0.17.0",
     "system-bell-webpack-plugin": "^1.0.0",
     "url-loader": "^1.0.1",
@@ -97,7 +100,7 @@
   "pre-push": [
     "test"
   ],
-  "dependencies": {
+  "peerDependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "scrollreveal": "^4.0.0"
