@@ -10,7 +10,7 @@
     "test:watch": "jest --watch",
     "test:lint": "eslint . --ignore-path .gitignore --cache",
     "gh-pages": "webpack --env ghPages",
-    "gh-pages:deploy": "gh-pages -d gh-pages",
+    "gh-pages:deploy": "npx gh-pages -d gh-pages",
     "gh-pages:stats": "webpack --env ghPages --profile --json > stats.json",
     "build": "npm run dist",
     "dist": "webpack --env dist",
