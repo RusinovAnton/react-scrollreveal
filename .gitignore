@@ -1,16 +1,13 @@
-.idea/
-<<<<<<< HEAD
 #dist/
-node_modules/
 *.log
-=======
+.eslintcache
+.idea/
 build/
-gh-pages/
-dist/
+coverage/
 dist-es6/
 dist-modules/
+dist/
+gh-pages/
 node_modules/
-coverage/
+node_modules/
 npm-debug.log
-.eslintcache
->>>>>>> roll to the webpack
