@@ -75,6 +75,9 @@
   },
   "jest": {
     "collectCoverage": true,
+    "verbose": true,
+    "runner": "jest-runner",
+    "testURL": "http://localhost/",
     "moduleFileExtensions": [
       "js",
       "jsx"
