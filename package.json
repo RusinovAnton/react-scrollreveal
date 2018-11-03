@@ -97,9 +97,6 @@
     "animation"
   ],
   "license": "GPL-3.0",
-  "pre-push": [
-    "test"
-  ],
   "peerDependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
