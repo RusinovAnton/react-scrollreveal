@@ -1,151 +1,39 @@
-import React from 'react' // eslint-disable-line semi
-import ScrollReveal from 'scrollreveal' // eslint-disable-line semi
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import ScrollReveal from 'scrollreveal';
 
+const scrollreveal = ScrollReveal();
 
-/**
- * Creates React Component that will have animated elements on scroll
- *
- * @param {Array|object} srOptions
- * @param {string} srOptions.selector
- * @param {object} srOptions.options
- * @param {number} srOptions.interval
- * @return {function} React component
- */
-const ReactScrollreveal = (srOptions = {}) => (Component) => {
-  const sr = ScrollReveal();
+class Reveal extends Component {
+  static propTypes = {
+    component: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+  };
+  static defaultProps = {
+    component: 'div'
+  };
 
-  class ComponentWithScrollReveal extends React.Component {
-    static displayName = 'ComponentWithScrollReveal';
+  revealElement = React.createRef();
 
-    componentDidMount() {
-      this.initialize();
-    }
-
-    componentWillUpdate() {
-      this.refresh();
-    }
-
-    componentWillUnmount() {
-      this.clean();
-    }
-
-    /**
-     *
-     * @param {function} fn
-     */
-    forEachSrElement = (fn) => {
-      const elements = [];
-
-      this.forEachSrOption(({ selector }) => {
-        elements.concat(Array.prototype.slice.apply(document.querySelectorAll(selector)));
-      });
-
-      elements.forEach(fn);
-    };
-
-    /**
-     * Iterates through all srOptions and applies given function
-     *
-     * @param {function} fn
-     * @return undefined
-     */
-    forEachSrOption = (fn) => {
-      if (Array.isArray(srOptions)) {
-        srOptions.forEach((options) => {
-          fn(options);
-        });
-      } else if (typeof srOptions === 'object') {
-        fn(srOptions);
-      } else {
-        throw new TypeError('Invalid arguments were passed');
-      }
-    };
-
-    /**
-     * Get reveal elements by given selector
-     *
-     * @param {string} selector
-     * @return {NodeList}
-     */
-    getRevealElements(selector) {
-      return selector ? this.animationContainer.querySelectorAll(selector) :
-        this.animationContainer;
-    }
-
-    /**
-     * Init scrollreveal for all reveal elements by selector
-     *
-     * @param {number} interval - ScrollReveal's interval value to make sequential animation
-     * @param {object} options - ScrollReveal's options (see https://github.com/jlmakes/scrollreveal#2-configuration)
-     * @param {string} selector - selector that gets elements to reveal
-     */
-    applyRevealAnimation = ({ selector, options = {}, interval }) => {
-      const revealElements = this.getRevealElements(selector);
-      const opts = Object.assign({}, options);
-
-      // revealElements can be NodeList or single node
-      if (revealElements.length || !!revealElements.nodeType) {
-        sr.reveal(revealElements, opts, interval);
-      }
-    };
-
-    /**
-     * Initialize sr animations for every reveal element by given selector
-     *
-     * @return undefined
-     */
-    initialize() {
-      if (!this.animationContainer) {
-        return;
-      }
-
-      this.forEachSrOption(this.applyRevealAnimation);
-    }
-
-    clean(cleanStyles) {
-      // cleaning styles makes sr animation initialize again
-      // on same element that were still in DOM
-      if (cleanStyles) {
-        this.forEachSrElement(sr.clean);
-      } else {
-        // remove event listeners
-        // on component unmount event
-        sr.destroy();
-      }
-    }
-
-    refresh() {
-      this.clean(true);
-      this.initialize();
-    }
-
-    /**
-     * Gets ref to the child's component desired animation container DOM node
-     *
-     * @param {object} node
-     * @return undefined
-     */
-    getRef = (node) => {
-      if (typeof node.nodeType === 'number') {
-        this.animationContainer = node;
-      } else {
-        throw new Error('You should put animationContainerReference on DOM node, not React component.');
-      }
-    };
-
-    render() {
-      return (
-        <Component
-          animationContainerReference={this.getRef}
-          destroyRevealAnimation={this.clean}
-          refreshRevealAnimation={this.refresh}
-          {...this.props}
-        />
-      );
+  componentDidMount() {
+    const element = this.revealElement.current;
+    if (element) {
+      scrollreveal.reveal(element, { reset: true });
     }
   }
 
-  return ComponentWithScrollReveal;
-};
+  componentWillUnmount() {
+    const element = this.revealElement.current;
+    if (element) {
+      scrollreveal.clean(element);
+    }
+  }
 
-export default ReactScrollreveal;
+  render() {
+    const { component: RevealComponent, children } = this.props;
+    if (!children) return null;
+
+    return <RevealComponent ref={this.revealElement}>{children}</RevealComponent>;
+  }
+}
+
+export default Reveal;
